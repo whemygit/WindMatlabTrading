@@ -1,0 +1,2 @@
+# WindMatlabTrding
+tradingsystem based windfunction
