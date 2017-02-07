@@ -19,7 +19,7 @@ clc;clear
 clear global
 %% 策略初始化参数
 w        =  windmatlab;
-secCode  =  'IF1510.CFE';
+secCode  =  'IF1702.CFE';
 %判断参数是否有效
 choice = questdlg(strcat('请先确认代码中secCode:',secCode,' 是否是当前有效的股指期货合约，如果不是，请修改后再运行！'),'运行提示','继续运行','不运行','继续运行')
 if strcmpi(choice,'不运行')==1,return;end
@@ -28,7 +28,7 @@ if strcmpi(choice,'不运行')==1,return;end
 %                 经纪商  营业部  拟资金账号 资金密码  账号类型 
 WindID = inputdlg({'输入Wind账号'},'',1,{''});
 if length(WindID)==0;error('请重新输入账号');end
-[Data1]= w.tlogon('0000','0',[WindID{1},'02'],'123456', 'CFE');
+[Data1]= w.tlogon('0000','0',[WindID{1},'02'],'29177624', 'CFE');
 
 if Data1{1}<0;errordlg('资金账号错误,请确认是否开通连接外网权限。');assert('');end
 %%
@@ -52,7 +52,8 @@ LineDivision=uitable('Parent',RTMontor,...
   'BackgroundColor', backgroundColor,...
   'Data',Data);
 set(LineDivision,'ColumnWidth',{180 100 100 140 140});
-uicontrol('Parent',RTMontor,'style','pushbutton','position',[330 10  80 20],'FontSize',12,'value',1,'string','退出','HorizontalAlignment','center','callback','w.cancelRequest(0);close(gcf)'); 
+uicontrol('Parent',RTMontor,'style','pushbutton','position',[330 10  80 20],...
+    'FontSize',12,'value',1,'string','退出','HorizontalAlignment','center','callback','w.cancelRequest(0);close(gcf)'); 
 %% 2. 传入策略函数参数
 global discQuery Sign RequestID;
 discQuery.t1       = 0;

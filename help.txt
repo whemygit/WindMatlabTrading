@@ -1,0 +1,129 @@
+>> help tquery
+ --- help for windmatlab/tquery ---
+
+    tquery用来查询交易相关所有信息。
+    如需向导，请使用w.menu('tquery')创建命令.
+    [Data,Fields,ErrorCode] = tquery(w,qrycode, varargin)
+  
+    Description：
+        w             为创建的windmatlab对象；
+        qrycode         委托下单后查询到的委托号 .
+                        0 Capital 资金； 1 Position   持仓； 2 Order 当日委托； 
+                        3 Trade 当日成交;4 Department 营业部;5 Account 股民账号
+                        6 Broker 经纪商; 7 LogonID   登录ID
+    根据qrycode可选输入可能有： 
+        'LogonID'       交易登录ID,当有多个交易账号时需要指明
+        'RequestID'     委托下单返回的请求ID
+        'OrderNumber'   委托下单柜台返回的ID
+        'WindCode'      依据WindCode查询
+ 
+    返回结果： 
+        Data            返回的数据内容,为一个cell，最后两列为错误号和错误消息。
+        Fields          返回的数据内容中对应的解释.
+        ErrorCode     返回的错误号，0表示所有操作都对，其他表示有错，可以根据Data定位具体错误 . 
+     注：此命令qrycode只能选一个，可选参数支持向量操作。
+    Example：     
+
+
+
+
+>> help torder
+ --- help for windmatlab/torder ---
+
+    torder用来下单。
+    如需向导，请使用w.menu('torder')创建命令.
+    [Data,Fields,ErrorCode] = torder(w,WindCode, TradeSide, OrderPrice, OrderVolume, varargin)
+  
+    Description：
+        w             为创建的windmatlab对象；
+        WindCode        需要交易的证券代码.
+        TradeSide       交易方向
+                        开仓买入(证券买入) ：1  or Buy
+                        开仓卖出          : 2 or Short
+                        平仓买入          : 3 or Cover
+                        平仓卖出(证券卖出) :4 or Sell
+                        平今仓买入        : 5 or CoverToday
+                        平今仓卖出        :6 or SellToday
+        OrderPrice      交易价格
+        OrderVolume     交易数量
+    其中可选输入： 
+        'LogonID'       交易登录ID,当有多个交易账号时需要指明
+        'MarketType'    当证券代码不是Wind码时需要提供证券所处的市场代码。
+                         深圳：0 or SZ；上海：1 or SH；深圳特 三板: 2 or OC
+                         港股 : 6 or HK；郑商所:7 or CZC；上期所:8 or SHF；
+                         大商所:9 or DCE；中金所： 10 or CFE
+        'OrderType'     价格委托方式。缺省为限价委托0
+                        限价委托 : 0 缺省 LMT
+                        对方最优价格委托  : 1 BOC
+                        本方最优价格委托  :2 BOP
+                        即时成交剩余撤销  :3 ITC
+                        最优五档剩余撤销  :4 B5TC
+                        全额成交或撤销委托：5 FOK
+                        最优五档剩余转限价：6 B5TL
+        'HedgeType'     对于期货需要填
+                        -投机    ： 0 or SPEC    缺省
+                        -保值    :  1 or HEDG
+    返回结果： 
+        Data            返回的数据内容,为一个cell，最后两列为错误号和错误消息。
+        Fields          返回的数据内容中对应的解释.
+        ErrorCode     返回的错误号，0表示所有操作都对，其他表示有错，可以根据Data定位具体错误 . 
+     注：此命令支持向量操作。
+    Example：     
+            
+
+>> help tcancel
+ --- help for windmatlab/tcancel ---
+
+    tlogon用来登录交易账号。
+    如需向导，请使用w.menu('tcancel')创建命令.
+    [Data,Fields,ErrorCode] = tcancel(w,OrderNumber, varargin)
+  
+    Description：
+        w             为创建的windmatlab对象；
+        OrderNumber     委托下单后查询到的委托号 .
+    其中可选输入： 
+        'LogonID'       交易登录ID,当有多个交易账号时需要指明
+        'MarketType'    有时需要提供证券所处的市场代码。
+                         深圳：0 or SZ；上海：1 or SH；深圳特 三板: 2 or OC
+                         港股 : 6 or HK；郑商所:7 or CZC；上期所:8 or SHF；
+                         大商所:9 or DCE；中金所： 10 or CFE
+    返回结果： 
+        Data            返回的数据内容,为一个cell，最后两列为错误号和错误消息。
+        Fields          返回的数据内容中对应的解释.
+        ErrorCode     返回的错误号，0表示所有操作都对，其他表示有错，可以根据Data定位具体错误 . 
+     注：此命令支持向量操作。
+    Example：     
+
+
+>> help wsq
+ --- help for windmatlab/wsq ---
+
+    wsq用来获取当天实时指标数据，数据可以一次性请求，也可以通过订阅的方式获取当日实时行情数据.
+    如需向导，请使用w.menu('wsq')创建命令.
+  
+    一次性请求实时行情数据：
+    [data,codes,fields,times,errorid] = w.wsq(windcodes,windfields)
+  
+    订阅实时行情数据：
+    [~,~,~,~,errorid,reqid] = w.wsq(windcodes,windfields,callback,userdata)
+    其中callback为回调函数，用来指定实时指标触发时执行相应的回调函数.
+        userdata为传递给回调函数的用户自己的数据
+   
+    Description：
+         w              创建的windmatlab对象；
+         windcodes      Wind代码，格式为'600000.SH',单个请求支持多品种.
+         windfields     提取指标，格式为'rt_last_vol,rt_ask1,rt_asize1'.
+         callback       回调函数,通过回调函数接收不断传递回来的实时数据
+     
+         data         返回的数据结果.
+         codes          返回数据对应的代码.
+         fields         返回数据对应的指标.
+         times          返回数据对应的时间.
+         errorid        函数运行的错误ID.
+         reqid          在订阅时为请求id，用来取消订阅的
+  
+    Example：     
+         [~,~,~,~,errorid,reqid]=w.wsq('600000.SH,000002.SH','rt_last,rt_last_vol,rt_ask1,rt_asize1',@WSQCallback) 
+         w.cancelRequest(reqid);
+         或者可以运行Sample中的getRealtimeWSQ.m文件.
+ 
