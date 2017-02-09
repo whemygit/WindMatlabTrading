@@ -3,4 +3,4 @@
 [Data]=w.tlogout([1])
 %% 2. 多账号登录
 % 如需退出登录号2与3。
-% [Data]=w.tlogout([2 3])
+% [Data]=w.tlogout([1 2 3])
