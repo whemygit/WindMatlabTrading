@@ -83,6 +83,6 @@ parTrade.Data      =  Data;
 parTrade.LineDivision  = LineDivision;
 parTrade.Data1         = Data1(:,1);  % 自动生成的登录号，单元数组，如[1]
 parTrade.Timer         = now;
-w.wsq(secCode,'rt_last',@Minte3_MA5_MA20,parTrade); % 用wsq函数订阅secCode的实时行情数据，当触发Minte3_MA5_MA20函数的信号时执行wsq,提取现价【rt_last】指标
+w.wsq(secCode,'rt_last',@Minte3_MA5_MA20,parTrade); % 用wsq函数订阅secCode的实时行情数据，实时指标触发是执行Minte3_MA5_MA20函数
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
