@@ -75,7 +75,7 @@ D：成交回报
         Data4
         Data14
         we
-        Data5
+%         Data5
        %% 5. 统计成交(5秒钟查询一次)   
         if  now-discQuery.t1>5*1/24/60/60 
         % 成交序号 Wind代码 交易方向  成交价格 成交数量

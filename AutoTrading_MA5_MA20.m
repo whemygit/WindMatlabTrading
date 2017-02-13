@@ -35,6 +35,7 @@ if length(WindPWD)==0;error('密码错误');end
                                                                    % 输入变量：经纪商,营业部,拟资金账号,资金密码,账号类型
                                                                    % 输出变量：'LogonID','LogonAccount','AccountType','ErrorCode'（0表示正常）,'ErrorMsg'.
                                                                    % 如[1]    'W8439400502'    'SHF'    [0]    ''
+Data1                                                                   
 if Data1{1}<0;errordlg('资金账号错误,请确认是否开通连接外网权限。');assert('');end   % 查看登录号Data1{1}，如果小于0表示资金帐号错误。
 
 % 选择合约
